@@ -25,7 +25,7 @@ SECRET_KEY = 'dh#ey+fe(43ui5qlol-u*$+(=-3ah99v85al8u%1zo+aax)*6b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
     # 3rd party apps
+    'corsheaders',
     'rest_framework',
     'api',
     'csvimport.app.CSVImportConf',  # use AppConfig for django >=1.7 csvimport >=2.2
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Whitenoise Middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -134,3 +136,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'build', 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
