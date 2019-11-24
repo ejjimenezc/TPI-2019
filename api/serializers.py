@@ -31,7 +31,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ResponseSerializer(serializers.Serializer):
-    question_code = serializers.CharField(max_length=10)
+    question_code = serializers.CharField(max_length=20)
     response = serializers.IntegerField()
 
     def create(self, validated_data):

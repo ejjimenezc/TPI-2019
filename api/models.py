@@ -48,5 +48,6 @@ class Question(models.Model):
 
 
 def test_analysis(data):
-    return data
+
+    return data[0]
     #return {'rta': 'The One Piece exists'}

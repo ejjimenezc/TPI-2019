@@ -12,28 +12,24 @@ class Questions extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  convert_to_list(data){
+    var result = Object.keys(data).map(function(key) {
+      return {"question_code":key, "response": Number(data[key])};
+    });
+    return result;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     var serialize = require('form-serialize');
-    var data = serialize(event.target, { hash: true });
-    console.log(data);
-    var test = [JSON.stringify({
-      "question_code": "1",
-      "response": 3
-      }),
-      JSON.stringify({
-        "question_code": "1",
-        "response": 4
-        })];
-    console.log(test)
+    var data = this.convert_to_list(serialize(event.target, { hash: true }));
 
     fetch('http://localhost:8000/test/', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: test
+      body: JSON.stringify(data)
     })
 
   }
