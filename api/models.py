@@ -29,16 +29,22 @@ class Solution(models.Model):
         return self.name
 
 
-class Test(models.Model):
-    question_a = models.IntegerField()
-    question_b = models.IntegerField()
-    question_c = models.IntegerField()
-    question_d = models.IntegerField()
-    question_e = models.IntegerField()
+
+class Question(models.Model):
+    QUESTION_CATEGORY = [
+                        ('A', 'Type'),
+                        ('B', 'Best'),
+                    ]
+    code = models.CharField(max_length=10,primary_key=True)
+    name = models.CharField(max_length=20)
+    question = models.CharField(max_length=100)
+    min_value = models.IntegerField()
+    max_value = models.IntegerField()
+    category = models.CharField(max_length=1, choices=QUESTION_CATEGORY)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
-        return ("test_"+str(self.id))
+        return ("test_"+str(self.name))
 
 
 def test_analysis(data):

@@ -19,7 +19,7 @@ class CompanySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TestSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Test
+        model = Question
         fields = '__all__'

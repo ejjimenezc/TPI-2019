@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'rest_framework',
     'api',
+    'csvimport.app.CSVImportConf',  # use AppConfig for django >=1.7 csvimport >=2.2
 ]
 
 MIDDLEWARE = [
