@@ -25,16 +25,11 @@ class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
 
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def new_test(request):
-
-    if request.method == 'GET':
-        questions = Question.objects.all()
-        serializer = QuestionSerializer(questions, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = QuestionSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(test_analysis(serializer.data), status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    print("Data: ",request.data)
+    serializer = ResponseSerializer(data=request.data,many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(test_analysis(serializer.data), status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

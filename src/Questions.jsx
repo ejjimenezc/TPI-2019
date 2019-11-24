@@ -6,8 +6,36 @@ class Questions extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      questions: []
+      questions: [],
+      responses: {}
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    var serialize = require('form-serialize');
+    var data = serialize(event.target, { hash: true });
+    console.log(data);
+    var test = [JSON.stringify({
+      "question_code": "1",
+      "response": 3
+      }),
+      JSON.stringify({
+        "question_code": "1",
+        "response": 4
+        })];
+    console.log(test)
+
+    fetch('http://localhost:8000/test/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: test
+    })
+
   }
 
   componentDidMount() {
@@ -19,7 +47,6 @@ class Questions extends React.Component {
             isLoaded: true,
             questions: result
           });
-          console.log(result);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -43,16 +70,16 @@ class Questions extends React.Component {
       return (
         <div className="questions">
         <h1>Questions for {this.props.name}</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           {questions.map(item => (
-            <div key={item.code}>
-              <label >
-              {item.question}
-              <input type="number" name={item.name} min={item.min_value} max={item.max_value}/>
+          <div  key={item.code}>
+              <label htmlFor={item.code}>{item.question}
+                <input id={item.code} type="number" name={item.code} min={item.min_value} max={item.max_value}/>
               </label>
-            </div>
+          </div>
+
           ))}
-          <input type="submit" value="Submit" />
+          <button>Send data!</button>
         </form>
       </div>
       );
@@ -61,3 +88,5 @@ class Questions extends React.Component {
 }
   
 export default Questions;
+
+
