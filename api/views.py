@@ -20,9 +20,13 @@ class CompanyViewSet(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
 
 
-class QuestionViewSet(viewsets.ModelViewSet):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+class QuestionAViewSet(viewsets.ModelViewSet):
+    queryset = QuestionTypeA.objects.all()
+    serializer_class = QuestionASerializer
+
+class QuestionBViewSet(viewsets.ModelViewSet):
+    queryset = QuestionTypeB.objects.all()
+    serializer_class = QuestionBSerializer
 
 
 @api_view(['POST'])

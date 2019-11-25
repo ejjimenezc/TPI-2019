@@ -25,9 +25,14 @@ class CompanySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionASerializer(serializers.ModelSerializer):
     class Meta:
-        model = Question
+        model = QuestionTypeA
+        fields = '__all__'
+
+class QuestionBSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionTypeB
         fields = '__all__'
 
 class ResponseSerializer(serializers.Serializer):

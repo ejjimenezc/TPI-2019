@@ -19,23 +19,31 @@ class Questions extends React.Component {
     return result;
   }
 
-  handleSubmit(event) {
+
+  async handleSubmit(event) {
     event.preventDefault();
     var serialize = require('form-serialize');
     var data = this.convert_to_list(serialize(event.target, { hash: true }));
 
-    fetch('http://localhost:8000/test/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
+    try {
+      const response = await fetch('http://localhost:8000/test/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      const json = await response.json();
+      console.log(JSON.stringify(json));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
 
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/question")
+    fetch("http://localhost:8000/QuestionTypeA")
       .then(res => res.json())
       .then(
         (result) => {
