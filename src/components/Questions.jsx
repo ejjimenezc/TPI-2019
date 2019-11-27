@@ -7,7 +7,8 @@ class Questions extends React.Component {
       error: null,
       isLoaded: false,
       questions: [],
-      responses: {}
+      responses: {},
+      stage: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -35,7 +36,9 @@ class Questions extends React.Component {
         body: JSON.stringify(data)
       });
       const json = await response.json();
-      console.log(JSON.stringify(json));
+      if(response.status==201){
+        this.setState({stage: 1});
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -72,29 +75,36 @@ class Questions extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return (
-        <div className="questions">
-        <h1>Questions for {this.props.name}</h1>
-        <form onSubmit={this.handleSubmit}>
-          {questions.map(item => (
-
-          <div key={item.code}>
-            <label htmlFor={item.code}>{item.question}:</label>
-            <p>
-            <input type="radio" id={item.code} name={item.code} defaultChecked value="1"></input><label>Yes</label>
-            </p>
-            <p>
-            <input type="radio" id={item.code} name={item.code} value="0"></input><label>No</label>
-            </p>
-          </div>
-
-          ))}
-          <button>Send data!</button>
-        </form>
-      </div>
-      );
+      if (this.state.stage==0) {
+        return (
+          <div className="questions">
+          <h1>Questions for {this.props.name}</h1>
+          <form onSubmit={this.handleSubmit}>
+            {questions.map(item => (
+  
+            <div key={item.code}>
+              <label htmlFor={item.code}>{item.question}:</label>
+              <p>
+              <input type="radio" id={item.code} name={item.code} defaultChecked value="1"></input><label>Yes</label>
+              </p>
+              <p>
+              <input type="radio" id={item.code} name={item.code} value="0"></input><label>No</label>
+              </p>
+            </div>
+  
+            ))}
+            <button>Send data!</button>
+          </form>
+        </div>
+        );
+      }else if(this.state.stage==1){
+        return <div>More Questions</div>;
+      }else{
+        return <div>Loading...</div>;
+      }
     }
-  }
+      
+    }
 }
   
 export default Questions;
