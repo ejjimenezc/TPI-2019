@@ -1,3 +1,13 @@
-code,name,question,min_value,max_value
-question_b_01,a_name,Que nombre,1,5
-question_b_02,another,Cual nombre,1,5
+code,name,question,category_code
+question_b_01,1,Question 01,category_camera
+question_b_02,2,Question 02,category_camera
+question_b_03,3,Question 03,category_alarm
+question_b_04,4,Question 04,category_alarm
+question_b_05,5,Question 05,category_sensor
+question_b_06,6,Question 06,category_sensor
+question_b_07,7,Question 07,category_lock
+question_b_08,8,Question 08,category_lock
+question_b_09,9,Question 09,category_light
+question_b_10,10,Question 10,category_light
+question_b_11,11,Question 11,category_protection
+question_b_12,12,Question 12,category_protection

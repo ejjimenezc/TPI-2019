@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import './App.sass';
+import './App.scss';
 
 import Questions from './components/Questions';
 

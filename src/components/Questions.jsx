@@ -13,8 +13,9 @@ class Questions extends React.Component {
   }
 
   convert_to_list(data){
+    console.log(data)
     var result = Object.keys(data).map(function(key) {
-      return {"question_code":key, "response": Number(data[key])};
+      return {"question_code":key, "response": parseInt(data[key])};
     });
     return result;
   }
@@ -76,10 +77,15 @@ class Questions extends React.Component {
         <h1>Questions for {this.props.name}</h1>
         <form onSubmit={this.handleSubmit}>
           {questions.map(item => (
-          <div  key={item.code}>
-              <label htmlFor={item.code}>{item.question}
-                <input id={item.code} type="number" name={item.code} min={item.min_value} max={item.max_value}/>
-              </label>
+
+          <div key={item.code}>
+            <label htmlFor={item.code}>{item.question}:</label>
+            <p>
+            <input type="radio" id={item.code} name={item.code} defaultChecked value="1"></input><label>Yes</label>
+            </p>
+            <p>
+            <input type="radio" id={item.code} name={item.code} value="0"></input><label>No</label>
+            </p>
           </div>
 
           ))}

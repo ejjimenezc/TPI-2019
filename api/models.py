@@ -37,9 +37,8 @@ class QuestionTypeA(models.Model):
     code = models.CharField(max_length=10,primary_key=True)
     name = models.CharField(max_length=20)
     question = models.CharField(max_length=100)
-    min_value = models.IntegerField()
-    max_value = models.IntegerField()
     user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    category_code = models.CharField(max_length=20)
 
     def __str__(self):
         return ("test_"+str(self.name))

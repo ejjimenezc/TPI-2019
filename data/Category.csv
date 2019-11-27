@@ -1,1 +1,7 @@
- 
+code,name,description
+category_camera,Camara de Seguridad,
+category_alarm,Alarma,
+category_sensor,Sensor,
+category_lock,Locks,
+category_light,Lights and Monitoring,
+category_protection,Property Protection,
