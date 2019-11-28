@@ -8,6 +8,7 @@ class Questions extends React.Component {
       isLoaded: false,
       questions: [],
       responses: {},
+      questionsB: [],
       stage: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,20 +28,41 @@ class Questions extends React.Component {
     var serialize = require('form-serialize');
     var data = this.convert_to_list(serialize(event.target, { hash: true }));
 
-    try {
-      const response = await fetch('http://localhost:8000/test/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      });
-      const json = await response.json();
-      if(response.status==201){
-        this.setState({stage: 1});
+    if(this.state.stage == 0){
+      try {
+        const response = await fetch('http://localhost:8000/find_categories/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        if(response.status==201){
+          this.setState({stage: 1});
+          this.setState({questionsB: json});
+        }
+      } catch (error) {
+        console.error('Error:', error);
       }
-    } catch (error) {
-      console.error('Error:', error);
+    }
+    else if(this.state.stage == 1){
+      try {
+        const response = await fetch('http://localhost:8000/best_match/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        if(response.status==201){
+          this.setState({stage: 2});
+          console.log(json);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
 
 
@@ -69,7 +91,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, questions } = this.state;
+    const { error, isLoaded, questions,questionsB } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -97,8 +119,22 @@ class Questions extends React.Component {
           </form>
         </div>
         );
-      }else if(this.state.stage==1){
-        return <div>More Questions</div>;
+      }else if(this.state.stage==1){return (
+        <div className="questions B">
+        <h1>Questions Section B</h1>
+        <form onSubmit={this.handleSubmit}>
+          {questionsB.map(item => (
+
+          <div key={item.code}>
+            <label htmlFor={item.code}>{item.question}:</label>
+            <input id={item.code} type="number" name={item.code} min={item.min_value} max={item.max_value} defaultValue="1"/>
+          </div>
+
+          ))}
+          <button>Send data!</button>
+        </form>
+      </div>
+      );
       }else{
         return <div>Loading...</div>;
       }

@@ -30,10 +30,18 @@ class QuestionBViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
-def new_test(request):
-    print("Data: ",request.data)
+def find_categories(request):
     serializer = ResponseSerializer(data=request.data,many=True)
     if serializer.is_valid():
         serializer.save()
-        return Response(test_analysis(serializer.data), status=status.HTTP_201_CREATED)
+        return Response(category_analysis(serializer.data), status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def best_match(request):
+    serializer = matchSerializer(data=request.data,many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(solution_analysis(serializer.data), status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

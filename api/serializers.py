@@ -41,3 +41,11 @@ class ResponseSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Response(**validated_data)
+
+
+class matchSerializer(serializers.Serializer):
+    question_code = serializers.CharField(max_length=20)
+    response = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return Response(**validated_data)

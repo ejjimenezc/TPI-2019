@@ -11,5 +11,6 @@ router.register(r'QuestionTypeB', views.QuestionBViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('test/', views.new_test),
+    path('find_categories/', views.find_categories),
+    path('best_match/', views.best_match),
 ]
