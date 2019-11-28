@@ -1,19 +1,5 @@
-code,name,question,min_value,max_value,category_code
-question_b_01,question1,Question 01,1,5,category_camera
-question_b_02,question2,Question 02,1,5,category_alarm
-question_b_03,question3,Question 03,1,5,category_sensor
-question_b_04,question4,Question 04,1,5,category_lock
-question_b_05,question5,Question 05,1,5,category_light
-question_b_06,question6,Question 06,1,5,category_protection
-question_b_07,question7,Question 07,1,5,category_camera
-question_b_08,question8,Question 08,1,5,category_alarm
-question_b_09,question9,Question 09,1,5,category_sensor
-question_b_10,question10,Question 10,1,5,category_lock
-question_b_11,question11,Question 11,1,5,category_light
-question_b_12,question12,Question 12,1,5,category_protection
-question_b_13,question13,Question 13,1,5,category_camera
-question_b_14,question14,Question 14,1,5,category_alarm
-question_b_15,question15,Question 15,1,5,category_sensor
-question_b_16,question16,Question 16,1,5,category_lock
-question_b_17,question17,Question 17,1,5,category_light
-question_b_18,question18,Question 18,1,5,category_protection
+code,name,question,question_type,min_value,max_value,boolean_choice,multiple_choice,category_code
+question_b_01,question1,Question 01,IN,1,5,-,-,category_camera
+question_b_02,question2,Question 02,BO,0,0,"true,false",-,category_alarm
+question_b_03,question3,Question 03,MC,0,0,-,"Bogota,Cali,Cartagena",category_sensor
+question_b_04,question4,Question 04,MC,0,0,-,"USD,COP,YEN,NONE",category_lock

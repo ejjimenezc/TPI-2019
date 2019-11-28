@@ -1,5 +1,8 @@
 import React from 'react';
 
+import FormB from './FormB';
+
+
 class Questions extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +18,6 @@ class Questions extends React.Component {
   }
 
   convert_to_list(data){
-    console.log(data)
     var result = Object.keys(data).map(function(key) {
       return {"question_code":key, "response": parseInt(data[key])};
     });
@@ -27,6 +29,7 @@ class Questions extends React.Component {
     event.preventDefault();
     var serialize = require('form-serialize');
     var data = this.convert_to_list(serialize(event.target, { hash: true }));
+    console.log(event.target);
 
     if(this.state.stage == 0){
       try {
@@ -48,6 +51,7 @@ class Questions extends React.Component {
     }
     else if(this.state.stage == 1){
       try {
+
         const response = await fetch('http://localhost:8000/best_match/', {
           method: 'POST',
           headers: {
@@ -101,7 +105,7 @@ class Questions extends React.Component {
         return (
           <div className="questions">
           <h1>Questions for {this.props.name}</h1>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} id="category_form" name="category_form">
             {questions.map(item => (
   
             <div key={item.code}>
@@ -122,12 +126,11 @@ class Questions extends React.Component {
       }else if(this.state.stage==1){return (
         <div className="questions B">
         <h1>Questions Section B</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}  id="solution_form" name="solution_form">
           {questionsB.map(item => (
 
           <div key={item.code}>
-            <label htmlFor={item.code}>{item.question}:</label>
-            <input id={item.code} type="number" name={item.code} min={item.min_value} max={item.max_value} defaultValue="1"/>
+            <FormB item={item}/>
           </div>
 
           ))}

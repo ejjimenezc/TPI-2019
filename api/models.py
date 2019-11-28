@@ -45,11 +45,24 @@ class QuestionTypeA(models.Model):
 
 
 class QuestionTypeB(models.Model):
+    FORM_TYPES = [
+        ('IN', 'Integer'),
+        ('BO', 'Boolean'),
+        ('MC', 'Multiple Choice'),
+    ]
+
     code = models.CharField(max_length=10,primary_key=True)
     name = models.CharField(max_length=20)
     question = models.CharField(max_length=100)
-    min_value = models.IntegerField(default=0)
-    max_value = models.IntegerField(default=99999999)
+    question_type = models.CharField(
+        max_length=2,
+        choices=FORM_TYPES,
+        default="IN",
+    )
+    min_value = models.IntegerField(default=0,null=True,blank=True)
+    max_value = models.IntegerField(default=0,null=True,blank=True)
+    boolean_choice = models.CharField(default=" , ", max_length=30,null=True,blank=True)
+    multiple_choice = models.CharField(default=" , ",max_length=30,null=True,blank=True)
     category_code = models.CharField(max_length=20)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
