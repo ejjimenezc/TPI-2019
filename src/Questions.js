@@ -1,7 +1,24 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import FormB from './FormB';
+import { object } from 'prop-types';
 
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(2),
+  },
+}));
 
 class Questions extends React.Component {
   constructor(props) {
@@ -19,7 +36,7 @@ class Questions extends React.Component {
 
   convert_to_list(data){
     var result = Object.keys(data).map(function(key) {
-      return {"question_code":key, "response": parseInt(data[key])};
+      return {"question_code":key, "response": data[key]};
     });
     return result;
   }
@@ -28,19 +45,25 @@ class Questions extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     var serialize = require('form-serialize');
-    var data = this.convert_to_list(serialize(event.target, { hash: true }));
-    console.log(event.target);
-
+    var data = {};
+    var formData = new FormData(event.target);
+    Array.from(formData.entries()).forEach(([key, value]) => {
+      data[key] = value;
+    })
+    
+    var json_data = JSON.stringify(this.convert_to_list(data));
     if(this.state.stage == 0){
       try {
-        const response = await fetch('http://localhost:8000/find_categories/', {
+        const response = await fetch(this.props.url+'find_categories/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data)
+          body: json_data
         });
         const json = await response.json();
+
+        console.log(json)
         if(response.status==201){
           this.setState({stage: 1});
           this.setState({questionsB: json});
@@ -52,7 +75,7 @@ class Questions extends React.Component {
     else if(this.state.stage == 1){
       try {
 
-        const response = await fetch('http://localhost:8000/best_match/', {
+        const response = await fetch(this.props.url+'best_match/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -73,7 +96,7 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/QuestionTypeA")
+    fetch(this.props.url+'QuestionTypeA')
       .then(res => res.json())
       .then(
         (result) => {
@@ -103,35 +126,29 @@ class Questions extends React.Component {
     } else {
       if (this.state.stage==0) {
         return (
-          <div className="questions">
-          <h1>Questions for {this.props.name}</h1>
+          <React.Fragment>
           <form onSubmit={this.handleSubmit} id="category_form" name="category_form">
             {questions.map(item => (
   
-            <div key={item.code}>
-              <label htmlFor={item.code}>{item.question}:</label>
-              <p>
-              <input type="radio" id={item.code} name={item.code} defaultChecked value="1"></input><label>Yes</label>
-              </p>
-              <p>
-              <input type="radio" id={item.code} name={item.code} value="0"></input><label>No</label>
-              </p>
-            </div>
+              <React.Fragment key={item.code}>
+                <FormB item={item} />
+                <br></br>
+              </React.Fragment>
   
             ))}
             <button>Send data!</button>
           </form>
-        </div>
+        </React.Fragment>
         );
       }else if(this.state.stage==1){return (
         <div className="questions B">
-        <h1>Questions Section B</h1>
         <form onSubmit={this.handleSubmit}  id="solution_form" name="solution_form">
           {questionsB.map(item => (
 
-          <div key={item.code}>
+          <React.Fragment key={item.code}>
             <FormB item={item}/>
-          </div>
+            <br></br>
+          </React.Fragment>
 
           ))}
           <button>Send data!</button>

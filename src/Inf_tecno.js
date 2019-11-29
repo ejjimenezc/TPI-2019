@@ -11,6 +11,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
+import Questions from './Questions';
+
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(2),
@@ -24,12 +26,15 @@ export default function Inf_tecno() {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  
 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         La tecnología que deseas tener
       </Typography>
+      <br></br>
+      <Questions url="http://localhost:8000/"/>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
           <FormControl component="fieldset" className={classes.formControl}>

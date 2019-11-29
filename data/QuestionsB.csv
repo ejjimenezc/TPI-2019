@@ -1,5 +1,5 @@
 code,name,question,question_type,min_value,max_value,boolean_choice,multiple_choice,category_code
-question_b_01,question1,Question 01,IN,1,5,-,-,category_camera
-question_b_02,question2,Question 02,BO,0,0,"true,false",-,category_alarm
-question_b_03,question3,Question 03,MC,0,0,-,"Bogota,Cali,Cartagena",category_sensor
-question_b_04,question4,Question 04,MC,0,0,-,"USD,COP,YEN,NONE",category_lock
+question_b_01,question1,Question 01,INT,1,5,-,-,category_camera
+question_b_02,question2,Question 02,BOOLEAN,0,0,"true,false",-,category_alarm
+question_b_03,question3,Question 03,MULTIPLE,0,0,-,"Bogota,Cali,Cartagena",category_sensor
+question_b_04,question4,Question 04,MULTIPLE,0,0,-,"USD,COP,YEN,NONE",category_lock
