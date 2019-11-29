@@ -45,7 +45,7 @@ class ResponseSerializer(serializers.Serializer):
 
 class matchSerializer(serializers.Serializer):
     question_code = serializers.CharField(max_length=20)
-    response = serializers.CharField(max_length=20)
+    response = serializers.CharField(max_length=100)
 
     def create(self, validated_data):
         return Response(**validated_data)

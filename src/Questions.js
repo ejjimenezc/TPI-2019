@@ -52,6 +52,7 @@ class Questions extends React.Component {
     })
     
     var json_data = JSON.stringify(this.convert_to_list(data));
+
     if(this.state.stage == 0){
       try {
         const response = await fetch(this.props.url+'find_categories/', {
@@ -63,7 +64,6 @@ class Questions extends React.Component {
         });
         const json = await response.json();
 
-        console.log(json)
         if(response.status==201){
           this.setState({stage: 1});
           this.setState({questionsB: json});
@@ -80,12 +80,11 @@ class Questions extends React.Component {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data)
+          body: json_data
         });
         const json = await response.json();
         if(response.status==201){
           this.setState({stage: 2});
-          console.log(json);
         }
       } catch (error) {
         console.error('Error:', error);
