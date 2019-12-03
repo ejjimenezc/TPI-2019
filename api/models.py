@@ -3,18 +3,18 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 
 class Category(models.Model):
-    code = models.CharField(max_length=10,primary_key=True)
-    name = models.CharField(max_length=60)
+    code = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=100)
     description = models.TextField()
 
     def __str__(self):
         return self.name
 
 class Company(models.Model):
-    code = models.CharField(max_length=10,primary_key=True)
-    name = models.CharField(max_length=60)
+    code = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=100)
     description = models.TextField()
-    url =  models.URLField(max_length=250,null=True)
+    url =  models.URLField(max_length=100,null=True)
     
     def __str__(self):
         return (str(self.id)+' - '+self.name)
@@ -22,12 +22,12 @@ class Company(models.Model):
 
 
 class Solution(models.Model):
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=100)
     description = models.TextField()
     value = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE,null=True)
-    url =  models.URLField(max_length=250,null=True)
+    url =  models.URLField(max_length=100,null=True)
 
     def __str__(self):
         return self.name
@@ -41,9 +41,9 @@ class QuestionTypeA(models.Model):
         ('MULTIPLE', 'Multiple Choice'),
     ]
 
-    code = models.CharField(max_length=10,primary_key=True)
-    name = models.CharField(max_length=20)
-    question = models.CharField(max_length=100)
+    code = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=100)
+    question = models.CharField(max_length=500)
     question_type = models.CharField(
         max_length=10,
         choices=FORM_TYPES,
@@ -67,9 +67,9 @@ class QuestionTypeB(models.Model):
         ('MULTIPLE', 'Multiple Choice'),
     ]
 
-    code = models.CharField(max_length=10,primary_key=True)
-    name = models.CharField(max_length=20)
-    question = models.CharField(max_length=100)
+    code = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=100)
+    question = models.CharField(max_length=500)
     question_type = models.CharField(
         max_length=10,
         choices=FORM_TYPES,
