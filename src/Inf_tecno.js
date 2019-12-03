@@ -10,7 +10,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
 import Questions from './Questions';
 
 const useStyles = makeStyles(theme => ({
@@ -18,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2),
   },
 }));
+
 
 export default function Inf_tecno() {
   const classes = useStyles();
@@ -34,7 +34,7 @@ export default function Inf_tecno() {
         La tecnología que deseas tener
       </Typography>
       <br></br>
-      <Questions url="http://localhost:8000/"/>
+      <Questions url={process.env.REACT_APP__API_URL}/>
     </React.Fragment>
   );
 }

@@ -95,6 +95,7 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.url)
     fetch(this.props.url+'QuestionTypeA')
       .then(res => res.json())
       .then(
