@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'api',
-    'csvimport.app.CSVImportConf',  # use AppConfig for django >=1.7 csvimport >=2.2
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +148,5 @@ CORS_ORIGIN_WHITELIST = [
     'https://tpig47.herokuapp.com',
     'http://tpig47.herokuapp.com'
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
