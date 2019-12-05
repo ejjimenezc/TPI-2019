@@ -1,5 +1,6 @@
-name,question,question_type,min_value,max_value,boolean_choice,multiple_choice,category
-question_b_01,Selecciona el tipo de monitoreo que quisieras:,MULTIPLE,,,,"Auditivo, Visual, Sonoro",category_camera
-question_b_02,Selecciona tu preferencia con respecto a cables:,MULTIPLE,,,,"Wired, Wireless, Both",category_alarm
-question_b_03,El sistema debe ser analogo o digital?,BOOLEAN,,,"Analogo, Digital",,category_sensor
-question_b_04,Presupuesto,INT,1,9000000,,,category_lock
+name,question,question_type,default_value,min_value,max_value,boolean_choice,multiple_choice,category
+question_b_01,Selecciona el tipo de monitoreo que quisieras:,MULTIPLE,,,,,"Auditivo, Visual, Sonoro",lock
+question_b_02,Selecciona tu preferencia con respecto a cables:,MULTIPLE,,,,,"Wired, Wireless, Both",alarm
+question_b_03,El sistema debe ser analogo o digital?,BOOLEAN,,,,"Analogo, Digital",,sensor
+question_b_04,Cuanto esta dispuesto a pagar?,INT,3,1,1000,,,camera
+question_b_05,Que rating prefiere como minimo?,INT,3,0,5,,,camera

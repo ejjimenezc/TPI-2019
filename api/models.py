@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Category(models.Model):
     code = models.CharField(max_length=20,primary_key=True)
@@ -10,13 +11,14 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Company(models.Model):
+class Brand(models.Model):
+    code = models.CharField(max_length=20,primary_key=True)
     name = models.CharField(max_length=100,unique=True)
     description = models.TextField()
     url =  models.URLField(max_length=100,null=True)
     
     def __str__(self):
-        return (str(self.id)+' - '+self.name)
+        return self.name
 
 
 
@@ -24,9 +26,10 @@ class Solution(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE,related_name='categories_a')
     url =  models.URLField(max_length=100,null=True)
-    value = models.IntegerField()
+    price = models.IntegerField()
+    rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self):
         return self.name
@@ -47,8 +50,9 @@ class QuestionTypeA(models.Model):
         choices=FORM_TYPES,
         default="INT",
     )
-    min_value = models.IntegerField(default=0,null=True,blank=True)
-    max_value = models.IntegerField(default=0,null=True,blank=True)
+    default_value = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    min_value = models.IntegerField(default=0,validators=[MinValueValidator(0)],null=True,blank=True)
+    max_value = models.IntegerField(default=0,validators=[MinValueValidator(0)],null=True,blank=True)
     boolean_choice = models.CharField(default=" , ", max_length=30,null=True,blank=True)
     multiple_choice = models.CharField(default=" , ",max_length=30,null=True,blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories_a')
@@ -96,6 +100,7 @@ def category_analysis(data):
 
     return questionsB
 
-
+#https://www.smarthomegadgets.shop/
 def solution_analysis(data):
+    
     return data

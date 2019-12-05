@@ -18,6 +18,6 @@ class QuestionTypeBAdmin(ImportExportModelAdmin):
 class CategoryAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(Company)
-class CompanyAdmin(ImportExportModelAdmin):
+@admin.register(Brand)
+class BrandAdmin(ImportExportModelAdmin):
     pass

@@ -5,7 +5,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'solution', views.SolutionViewSet)
 router.register(r'category', views.CategoryViewSet)
-router.register(r'company', views.CompanyViewSet)
+router.register(r'brand', views.BrandViewSet)
 router.register(r'QuestionTypeA', views.QuestionAViewSet)
 router.register(r'QuestionTypeB', views.QuestionBViewSet)
 

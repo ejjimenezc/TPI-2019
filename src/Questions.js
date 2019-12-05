@@ -54,7 +54,6 @@ class Questions extends React.Component {
     var json_data = JSON.stringify(this.convert_to_list(data));
 
     if(this.state.stage == 0){
-      console.log(json_data)
       try {
         const response = await fetch(this.props.url+'find_categories/', {
           method: 'POST',
@@ -85,7 +84,7 @@ class Questions extends React.Component {
         });
         const json = await response.json();
         if(response.status==201){
-          this.setState({stage: 2});
+          this.setState({stage: 1});
           console.log(json)
         }
       } catch (error) {
