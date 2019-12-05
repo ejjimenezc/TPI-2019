@@ -3,8 +3,8 @@ from api.models import *
 from datetime import datetime
 
 class Response(object):
-    def __init__(self, question_code, response):
-        self.question_code = question_code
+    def __init__(self, name, response):
+        self.name = name
         self.response = response
 
 class SolutionSerializer(serializers.ModelSerializer):
@@ -36,7 +36,7 @@ class QuestionBSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ResponseSerializer(serializers.Serializer):
-    question_code = serializers.CharField(max_length=20)
+    name = serializers.CharField(max_length=20)
     response = serializers.CharField(max_length=20)
 
     def create(self, validated_data):
@@ -44,7 +44,7 @@ class ResponseSerializer(serializers.Serializer):
 
 
 class matchSerializer(serializers.Serializer):
-    question_code = serializers.CharField(max_length=20)
+    name = serializers.CharField(max_length=20)
     response = serializers.CharField(max_length=100)
 
     def create(self, validated_data):

@@ -27,7 +27,7 @@ class FormB extends React.Component {
       <Grid item xs={12} md={12}>
         <FormControl component="fieldset">
           <FormLabel component="legend">{data.question}</FormLabel>
-          <Input name={data.code}
+          <Input name={data.name}
             margin="dense"
             inputProps={{
               defaultValue: data.min_value,
@@ -46,7 +46,7 @@ class FormB extends React.Component {
                 <Grid item xs={12} md={12}>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">{data.question}</FormLabel>
-                    <RadioGroup aria-label="tipo_moni" name={data.code}>
+                    <RadioGroup aria-label="tipo_moni" name={data.name}>
                       <FormControlLabel
                         value="1"
                         control={<Radio color="primary" />}
@@ -67,7 +67,7 @@ class FormB extends React.Component {
                 <Grid item xs={12} md={12}>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">{data.question}</FormLabel>
-                    <RadioGroup aria-label="tipo_moni" name={data.code}>
+                    <RadioGroup aria-label="tipo_moni" name={data.name}>
                     {choices.map(item => (
                       <FormControlLabel key={item}
                       value={item}
@@ -81,7 +81,7 @@ class FormB extends React.Component {
               </React.Fragment>
       
     }
-    return <div>{data.code}</div>;
+    return <div>{data.name}</div>;
   }
 }
   

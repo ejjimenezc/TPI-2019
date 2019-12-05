@@ -36,7 +36,7 @@ class Questions extends React.Component {
 
   convert_to_list(data){
     var result = Object.keys(data).map(function(key) {
-      return {"question_code":key, "response": data[key]};
+      return {"name":key, "response": data[key]};
     });
     return result;
   }
@@ -54,6 +54,7 @@ class Questions extends React.Component {
     var json_data = JSON.stringify(this.convert_to_list(data));
 
     if(this.state.stage == 0){
+      console.log(json_data)
       try {
         const response = await fetch(this.props.url+'find_categories/', {
           method: 'POST',
@@ -85,6 +86,7 @@ class Questions extends React.Component {
         const json = await response.json();
         if(response.status==201){
           this.setState({stage: 2});
+          console.log(json)
         }
       } catch (error) {
         console.error('Error:', error);
@@ -130,7 +132,7 @@ class Questions extends React.Component {
           <form onSubmit={this.handleSubmit} id="category_form" name="category_form">
             {questions.map(item => (
   
-              <React.Fragment key={item.code}>
+              <React.Fragment key={item.name}>
                 <FormB item={item} />
                 <br></br>
               </React.Fragment>
@@ -145,7 +147,7 @@ class Questions extends React.Component {
         <form onSubmit={this.handleSubmit}  id="solution_form" name="solution_form">
           {questionsB.map(item => (
 
-          <React.Fragment key={item.code}>
+          <React.Fragment key={item.name}>
             <FormB item={item}/>
             <br></br>
           </React.Fragment>
