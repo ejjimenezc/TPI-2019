@@ -10,7 +10,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import FormB from './FormB';
 import { object } from 'prop-types';
 
@@ -137,7 +138,9 @@ class Questions extends React.Component {
               </React.Fragment>
   
             ))}
-            <button>Send data!</button>
+            <Button variant="contained" type="submit" color="primary">
+              Next
+            </Button>
           </form>
         </React.Fragment>
         );
@@ -152,7 +155,9 @@ class Questions extends React.Component {
           </React.Fragment>
 
           ))}
-          <button>Send data!</button>
+            <Button variant="contained" type="submit" color="primary">
+              Next
+            </Button>
         </form>
       </div>
       );

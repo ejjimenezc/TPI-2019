@@ -68,6 +68,11 @@ class QuestionTypeB(models.Model):
         ('BOOLEAN', 'Boolean'),
         ('MULTIPLE', 'Multiple Choice'),
     ]
+    ARG_TYPES = [
+        ('EQUAL', 'Equal'),
+        ('LOWER', 'Lower'),
+        ('GREATER', 'Greater'),
+    ]
 
     name = models.CharField(max_length=100,unique=True)
     question = models.CharField(max_length=500)
@@ -82,6 +87,12 @@ class QuestionTypeB(models.Model):
     multiple_choice = models.CharField(default=" , ",max_length=30,null=True,blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories_b')
     user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    field = models.CharField(max_length=100,null=True,blank=True)
+    argument = models.CharField(
+        max_length=10,
+        choices=ARG_TYPES,
+        default="EQUAL",
+    )
 
     def __str__(self):
         return self.name
@@ -103,4 +114,34 @@ def category_analysis(data):
 #https://www.smarthomegadgets.shop/
 def solution_analysis(data):
     
-    return data
+
+    products = []
+
+    for question in data:
+        question_obj = QuestionTypeB.objects.get(name=question["name"])
+        cat_solutions = Solution.objects.filter(category=question_obj.category)
+        
+        if question_obj.field == '' or question_obj.field == None:
+            continue
+
+        if question_obj.question_type == "INT":
+            response = int(question["response"])
+            products += list(Solution.objects.filter(**{create_arg(question_obj.field,question_obj.argument): response }))
+
+        elif question_obj.question_type == "BOOLEAN":
+            response = bool(question["response"])
+            products += list(Solution.objects.filter(**{create_arg(question_obj.field,"EQUAL"): response }))
+
+        elif question_obj.question_type == "MULTIPLE":
+            response = question["response"]
+            products += list(Solution.objects.filter(**{create_arg(question_obj.field,"EQUAL"): response }))
+
+    return list(set(products))
+
+def create_arg(field,operation):
+    if operation == "EQUAL":
+        return field
+    elif operation == "GREATER":
+        return field + "__gte"
+    elif operation == "LOWER":
+        return field + "__lte"

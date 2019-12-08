@@ -43,5 +43,10 @@ def best_match(request):
     serializer = matchSerializer(data=request.data,many=True)
     if serializer.is_valid():
         serializer.save()
-        return Response(solution_analysis(serializer.data), status=status.HTTP_201_CREATED)
+        rta = solution_analysis(serializer.data)
+        solution_response = []
+        for solution in rta:
+            solution_response.append(SolutionSerializer(solution).data)
+
+        return Response(solution_response, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

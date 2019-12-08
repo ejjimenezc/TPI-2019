@@ -5,6 +5,8 @@ import Informacion from './Informacion';
 import Resumen from './Resumen';
 import Resultado from './Resultado';
 
+
+
 class App extends Component {
   constructor() {
     super();
