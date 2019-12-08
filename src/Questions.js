@@ -13,6 +13,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FormB from './FormB';
+import Solution from './Solution';
 import { object } from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2),
   },
 }));
+
 
 class Questions extends React.Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class Questions extends React.Component {
       questions: [],
       responses: {},
       questionsB: [],
+      rta: [],
       stage: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,8 +88,9 @@ class Questions extends React.Component {
         });
         const json = await response.json();
         if(response.status==201){
-          this.setState({stage: 1});
-          console.log(json)
+          this.setState({stage: 2});
+          this.setState({rta: json});
+          console.log(json);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -120,7 +124,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, questions,questionsB } = this.state;
+    const { error, isLoaded, questions,questionsB, rta } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -162,7 +166,16 @@ class Questions extends React.Component {
       </div>
       );
       }else{
-        return <div>Loading...</div>;
+        return <React.Fragment>
+          {rta.map(item => (
+
+            <React.Fragment key={item.id}>
+                <Solution solution={item}/>
+                <br/>
+            </React.Fragment>
+
+          ))}
+          </React.Fragment>
       }
     }
       

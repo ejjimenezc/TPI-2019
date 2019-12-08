@@ -5,19 +5,22 @@ import Informacion from './Informacion';
 import Resumen from './Resumen';
 import Resultado from './Resultado';
 
-
+import { Provider } from "./Context";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: 'Safe House'
+      name: 'Safe House',
+      page: 0,
+      solutions: [],
     };
   }
 
   render() {
 
     return (
+      <Provider value={this.state}>
           <Router>
 
           {/* Aqui se configuran las rutas de la aplicacion */}
@@ -58,6 +61,7 @@ class App extends Component {
             }>
             </Route>
           </Router>
+      </Provider>
     );
   }
 
