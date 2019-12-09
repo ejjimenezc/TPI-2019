@@ -41,7 +41,7 @@ class FormB extends React.Component {
       </Grid>
     </React.Fragment>
     }else if(data.question_type=="BOOLEAN"){
-      var choices = data.boolean_choice.split(',');
+      var choices = data.boolean_labels.split(',');
       return  <React.Fragment>
                 <Grid item xs={12} md={12}>
                   <FormControl component="fieldset">
@@ -62,7 +62,7 @@ class FormB extends React.Component {
                 </Grid>
               </React.Fragment>
     }else if(data.question_type=="MULTIPLE"){
-      var choices = data.multiple_choice.split(',');
+      var choices = data.choices_labels.split(',');
       return  <React.Fragment>
                 <Grid item xs={12} md={12}>
                   <FormControl component="fieldset">

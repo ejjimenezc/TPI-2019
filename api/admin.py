@@ -6,12 +6,12 @@ from .models import *
 class SolutionAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(QuestionTypeA)
-class QuestionTypeAAdmin(ImportExportModelAdmin):
+@admin.register(CategoryQuestion)
+class CategoryQuestionAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(QuestionTypeB)
-class QuestionTypeBAdmin(ImportExportModelAdmin):
+@admin.register(SolutionQuestion)
+class SolutionQuestionAdmin(ImportExportModelAdmin):
     pass
 
 @admin.register(Category)

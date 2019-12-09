@@ -25,25 +25,17 @@ class BrandSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class QuestionASerializer(serializers.ModelSerializer):
+class CategoryQuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuestionTypeA
+        model = CategoryQuestion
         fields = '__all__'
 
-class QuestionBSerializer(serializers.ModelSerializer):
+class SolutionQuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuestionTypeB
+        model = SolutionQuestion
         fields = '__all__'
 
 class ResponseSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=20)
-    response = serializers.CharField(max_length=20)
-
-    def create(self, validated_data):
-        return Response(**validated_data)
-
-
-class matchSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=20)
     response = serializers.CharField(max_length=100)
 

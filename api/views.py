@@ -21,12 +21,12 @@ class BrandViewSet(viewsets.ModelViewSet):
 
 
 class QuestionAViewSet(viewsets.ModelViewSet):
-    queryset = QuestionTypeA.objects.all()
-    serializer_class = QuestionASerializer
+    queryset = CategoryQuestion.objects.all()
+    serializer_class = CategoryQuestionSerializer
 
 class QuestionBViewSet(viewsets.ModelViewSet):
-    queryset = QuestionTypeB.objects.all()
-    serializer_class = QuestionBSerializer
+    queryset = SolutionQuestion.objects.all()
+    serializer_class = SolutionQuestionSerializer
 
 
 @api_view(['POST'])
@@ -40,7 +40,7 @@ def find_categories(request):
 
 @api_view(['POST'])
 def best_match(request):
-    serializer = matchSerializer(data=request.data,many=True)
+    serializer = ResponseSerializer(data=request.data,many=True)
     if serializer.is_valid():
         serializer.save()
         rta = solution_analysis(serializer.data)

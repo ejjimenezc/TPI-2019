@@ -1,5 +1,0 @@
-name,question,question_type,min_value,max_value,boolean_choice,multiple_choice,category
-question_a_1,Es util una camara?,BOOLEAN,,,"true,false",,camera
-question_a_2,Es util una alarma?,BOOLEAN,,,"true,false",,alarm
-question_a_3,Confianza en los sensores?,BOOLEAN,,,"true,false",,sensor
-question_a_4,Cree que la seguridad esta en la forma de entrar?,BOOLEAN,,,"true,false",,lock

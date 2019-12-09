@@ -13,6 +13,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FormB from './FormB';
+import FormCategory from './FormCategory';
 import Solution from './Solution';
 import { object } from 'prop-types';
 
@@ -20,6 +21,23 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(2),
   },
+  marginAutoContainer: {
+    width: 500,
+    height: 80,
+    display: 'flex',
+    backgroundColor: 'gold',
+  },
+  marginAutoItem: {
+    margin: 'auto'
+  },
+  alignItemsAndJustifyContent: {
+    width: 500,
+    height: 80,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'pink',
+  }
 }));
 
 
@@ -29,9 +47,9 @@ class Questions extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      questions: [],
+      categoryQuestions: [],
       responses: {},
-      questionsB: [],
+      solutionQuestions: [],
       rta: [],
       stage: 0,
     };
@@ -70,7 +88,7 @@ class Questions extends React.Component {
 
         if(response.status==201){
           this.setState({stage: 1});
-          this.setState({questionsB: json});
+          this.setState({solutionQuestions: json});
         }
       } catch (error) {
         console.error('Error:', error);
@@ -102,14 +120,15 @@ class Questions extends React.Component {
 
   componentDidMount() {
     console.log(this.props.url)
-    fetch(this.props.url+'QuestionTypeA')
+    fetch(this.props.url+'CategoryQuestion')
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            questions: result
+            categoryQuestions: result
           });
+          console.log(result)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -124,7 +143,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, questions,questionsB, rta } = this.state;
+    const { error, isLoaded, categoryQuestions,solutionQuestions, rta } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -134,10 +153,10 @@ class Questions extends React.Component {
         return (
           <React.Fragment>
           <form onSubmit={this.handleSubmit} id="category_form" name="category_form">
-            {questions.map(item => (
+            {categoryQuestions.map(item => (
   
               <React.Fragment key={item.name}>
-                <FormB item={item} />
+                <FormCategory item={item}/>
                 <br></br>
               </React.Fragment>
   
@@ -149,9 +168,9 @@ class Questions extends React.Component {
         </React.Fragment>
         );
       }else if(this.state.stage==1){return (
-        <div className="questions B">
+        <div className="solutionQuestions">
         <form onSubmit={this.handleSubmit}  id="solution_form" name="solution_form">
-          {questionsB.map(item => (
+          {solutionQuestions.map(item => (
 
           <React.Fragment key={item.name}>
             <FormB item={item}/>
@@ -170,8 +189,17 @@ class Questions extends React.Component {
           {rta.map(item => (
 
             <React.Fragment key={item.id}>
-                <Solution solution={item}/>
-                <br/>
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item xs={12}>
+                  <Solution solution={item}/>
+                </Grid>      
+              </Grid>
             </React.Fragment>
 
           ))}

@@ -8,11 +8,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import security from './security.jpeg'; 
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
-  },
+    maxWidth: 345
+  }
 });
 
 export default function Solution(props) {
@@ -25,7 +26,7 @@ export default function Solution(props) {
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image={security}
+          image={props.solution.image}
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -39,16 +40,16 @@ export default function Solution(props) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          {props.solution.brand}
+          Marca: {props.solution.brand}
         </Button>
         <Button size="small" color="primary">
-          {props.solution.price}
+          Costo: {props.solution.price}
         </Button>
         <Button size="small" color="primary">
-          {props.solution.rating}
+          Rating: {props.solution.rating}
         </Button>
         <Button size="small" color="primary">
-          {props.solution.category}
+          Categoria: {props.solution.category}
         </Button>
       </CardActions>
     </Card>

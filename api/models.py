@@ -28,7 +28,8 @@ class Solution(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE,related_name='categories_a')
     url =  models.URLField(max_length=100,null=True)
-    price = models.IntegerField()
+    image =  models.URLField(max_length=100,null=True)
+    price = models.IntegerField(default=0)
     rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self):
@@ -36,33 +37,18 @@ class Solution(models.Model):
 
 
 
-class QuestionTypeA(models.Model):
-    FORM_TYPES = [
-        ('INT', 'Integer'),
-        ('BOOLEAN', 'Boolean'),
-        ('MULTIPLE', 'Multiple Choice'),
-    ]
+class CategoryQuestion(models.Model):
 
     name = models.CharField(max_length=100,unique=True)
-    question = models.CharField(max_length=500)
-    question_type = models.CharField(
-        max_length=10,
-        choices=FORM_TYPES,
-        default="INT",
-    )
-    default_value = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    min_value = models.IntegerField(default=0,validators=[MinValueValidator(0)],null=True,blank=True)
-    max_value = models.IntegerField(default=0,validators=[MinValueValidator(0)],null=True,blank=True)
-    boolean_choice = models.CharField(default=" , ", max_length=30,null=True,blank=True)
-    multiple_choice = models.CharField(default=" , ",max_length=30,null=True,blank=True)
+    question = models.CharField(max_length=200)
+    labels = models.CharField(default="Si,No", max_length=50)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories_a')
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.name
 
 
-class QuestionTypeB(models.Model):
+class SolutionQuestion(models.Model):
     FORM_TYPES = [
         ('INT', 'Integer'),
         ('BOOLEAN', 'Boolean'),
@@ -83,12 +69,12 @@ class QuestionTypeB(models.Model):
     )
     min_value = models.IntegerField(default=0,null=True,blank=True)
     max_value = models.IntegerField(default=0,null=True,blank=True)
-    boolean_choice = models.CharField(default=" , ", max_length=30,null=True,blank=True)
-    multiple_choice = models.CharField(default=" , ",max_length=30,null=True,blank=True)
+    default_value = models.IntegerField(default=0,null=True,blank=True)
+    boolean_labels = models.CharField(default="Si,No", max_length=50,null=True,blank=True)
+    choices_labels = models.CharField(default="Si,No",max_length=50,null=True,blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories_b')
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    field = models.CharField(max_length=100,null=True,blank=True)
-    argument = models.CharField(
+    solution_field = models.CharField(max_length=100,null=True,blank=True)
+    comparator = models.CharField(
         max_length=10,
         choices=ARG_TYPES,
         default="EQUAL",
@@ -105,36 +91,35 @@ def category_analysis(data):
                 results[question["name"]]=0
             results[question["name"]]+=1
 
-    categories = list(QuestionTypeA.objects.filter(name__in=list(results.keys())).values('category'))
+    categories = list(CategoryQuestion.objects.filter(name__in=list(results.keys())).values('category'))
     unique_categories = list(set(val for dic in categories for val in dic.values())) 
-    questionsB = QuestionTypeB.objects.filter(category__in=unique_categories).values()
+    solutionQuestions = SolutionQuestion.objects.filter(category__in=unique_categories).values()
 
-    return questionsB
+    return solutionQuestions
 
 #https://www.smarthomegadgets.shop/
 def solution_analysis(data):
     
-
     products = []
 
     for question in data:
-        question_obj = QuestionTypeB.objects.get(name=question["name"])
+        question_obj = SolutionQuestion.objects.get(name=question["name"])
         cat_solutions = Solution.objects.filter(category=question_obj.category)
         
-        if question_obj.field == '' or question_obj.field == None:
+        if question_obj.solution_field == '' or question_obj.solution_field == None:
             continue
 
         if question_obj.question_type == "INT":
             response = int(question["response"])
-            products += list(Solution.objects.filter(**{create_arg(question_obj.field,question_obj.argument): response }))
+            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,question_obj.comparator): response }))
 
         elif question_obj.question_type == "BOOLEAN":
             response = bool(question["response"])
-            products += list(Solution.objects.filter(**{create_arg(question_obj.field,"EQUAL"): response }))
+            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response }))
 
         elif question_obj.question_type == "MULTIPLE":
             response = question["response"]
-            products += list(Solution.objects.filter(**{create_arg(question_obj.field,"EQUAL"): response }))
+            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response }))
 
     return list(set(products))
 
