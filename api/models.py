@@ -15,7 +15,7 @@ class Brand(models.Model):
     code = models.CharField(max_length=20,primary_key=True)
     name = models.CharField(max_length=100,unique=True)
     description = models.TextField()
-    url =  models.URLField(max_length=100,null=True)
+    url =  models.URLField(max_length=300,null=True)
     
     def __str__(self):
         return self.name
@@ -27,8 +27,8 @@ class Solution(models.Model):
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE,related_name='categories_a')
-    url =  models.URLField(max_length=100,null=True)
-    image =  models.URLField(max_length=100,null=True)
+    url =  models.URLField(max_length=300,null=True)
+    image =  models.URLField(max_length=300,null=True)
     price = models.IntegerField(default=0)
     rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
