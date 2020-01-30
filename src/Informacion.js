@@ -13,6 +13,8 @@ import Inf_basica from './Inf_basica';
 import Inf_tecno from './Inf_tecno';
 import Resumen from './Resumen';
 
+import Box from '@material-ui/core/Box';
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: 'relative',
@@ -87,6 +89,9 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const reload = () => {
+    window.location.reload();
+  };
   return (
     <div className={classes.image}>
     <React.Fragment>
@@ -117,15 +122,18 @@ export default function Checkout() {
                   Gracias por confiar en nosotros
                 </Typography>
                 <Typography variant="subtitle1">
-                  Oprime el botón para avanzar a tu cotización sugerida
+                  ¿Quiere realizar otra prueba?
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                >
-                  Ver cotización
-                </Button>
+                <Box display="flex" justifyContent='center'>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={reload}
+                    className={classes.button}
+                  >
+                    Nueva prueba
+                  </Button>
+                </Box>
               </React.Fragment>
             ) : (
               <React.Fragment>
