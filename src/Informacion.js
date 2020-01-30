@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
   buttons: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   button: {
     marginTop: theme.spacing(3),
@@ -131,18 +131,13 @@ export default function Checkout() {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Anterior
-                    </Button>
-                  )}
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
                   </Button>
                 </div>
               </React.Fragment>

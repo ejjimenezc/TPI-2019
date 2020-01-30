@@ -15,9 +15,7 @@ import Slider from '@material-ui/core/Slider';
 
 import Input from '@material-ui/core/Input';
 
-
 class FormB extends React.Component {
-
 
   
   render() {

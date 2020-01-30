@@ -16,6 +16,8 @@ import FormB from './FormB';
 import FormCategory from './FormCategory';
 import Solution from './Solution';
 import { object } from 'prop-types';
+import { withStyles } from "@material-ui/core/styles";
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -37,11 +39,21 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'pink',
-  }
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 
 class Questions extends React.Component {
+
+ 
   constructor(props) {
     super(props);
     this.state = {
@@ -161,9 +173,11 @@ class Questions extends React.Component {
               </React.Fragment>
   
             ))}
-            <Button variant="contained" type="submit" color="primary">
-              Next
-            </Button>
+            <Box display="flex" justifyContent='center'>
+              <Button variant="contained" type="submit" color="primary">
+                Continuar
+              </Button>
+            </Box>
           </form>
         </React.Fragment>
         );
@@ -178,9 +192,11 @@ class Questions extends React.Component {
           </React.Fragment>
 
           ))}
-            <Button variant="contained" type="submit" color="primary">
-              Next
-            </Button>
+            <Box display="flex" justifyContent='center'>
+              <Button variant="contained" type="submit" color="primary">
+                Continuar
+              </Button>
+            </Box>
         </form>
       </div>
       );
