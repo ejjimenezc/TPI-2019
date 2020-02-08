@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Inf_basica() {
+export default function Inf_basica({ data }) {
   const classes = useStyles();
   const defaultProps = {
     options: tipos_casas,
@@ -45,6 +45,7 @@ export default function Inf_basica() {
             name="nombre"
             label="Nombre"
             fullWidth
+            value={data.basic.nombre}
             autoComplete="nombre"
           />
         </Grid>
@@ -55,6 +56,7 @@ export default function Inf_basica() {
             name="apellido"
             label="Apellido"
             fullWidth
+            value={data.basic.apellido}
             autoComplete="apellido"
           />
         </Grid>
@@ -65,6 +67,7 @@ export default function Inf_basica() {
             name="ciudad"
             label="Ciudad"
             fullWidth
+            value={data.basic.ciudad}
             autoComplete="ciudad"
           />
         </Grid>
@@ -75,6 +78,7 @@ export default function Inf_basica() {
             name="localidad"
             label="Localidad"
             fullWidth
+            value={data.basic.localidad}
             autoComplete="localidad"
           />
         </Grid>
@@ -85,6 +89,7 @@ export default function Inf_basica() {
             name="barrio"
             label="Barrio"
             fullWidth
+            value={data.basic.barrio}
             autoComplete="barrio"
           />
         </Grid>
@@ -95,6 +100,7 @@ export default function Inf_basica() {
             name="direccion"
             label="Dirección"
             fullWidth
+            value={data.basic.direccion}
             autoComplete="direccion"
           />
         </Grid>
@@ -105,6 +111,7 @@ export default function Inf_basica() {
             name="presupuesto"
             label="Ingresa su presupuesto"
             fullWidth
+            value={data.basic.presupuesto}
             autoComplete="presupuesto"
           />
         </Grid>
@@ -115,6 +122,7 @@ export default function Inf_basica() {
             name="tamano"
             label="El tamaño de tu hogar"
             fullWidth
+            value={data.basic.tamano}
             autoComplete="tamano"
           />
         </Grid>

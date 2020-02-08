@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Inf_tecno() {
+export default function Inf_tecno(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('female');
 
@@ -34,7 +34,7 @@ export default function Inf_tecno() {
         La tecnología que deseas tener
       </Typography>
       <br></br>
-      <Questions url={process.env.REACT_APP__API_URL}/>
+      <Questions url={process.env.REACT_APP__API_URL} data={props.data} step={props.step}/>
     </React.Fragment>
   );
 }

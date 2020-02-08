@@ -64,14 +64,14 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Información básica', 'Información tecnológica', 'Tu resumen'];
 
-function getStepContent(step) {
+function getStepContent(step,data) {
   switch (step) {
     case 0:
-      return <Inf_basica/>;
+      return <Inf_basica data={data}/>;
     case 1:
-      return <Inf_tecno/>;
+      return <Inf_tecno data={data} step={step}/>;
     case 2:
-      return <Resumen />;
+      return <Resumen data={data}/>;
     default:
       throw new Error('Paso desconocido');
   }
@@ -92,6 +92,13 @@ export default function Checkout() {
   const reload = () => {
     window.location.reload();
   };
+
+  const data = {}
+  data["basic"]={}
+  data.basic["nombre"]="Juan";
+  data.basic["apellido"]="Perez";
+  data.basic["presupuesto"]="1000000";
+
   return (
     <div className={classes.image}>
     <React.Fragment>
@@ -137,16 +144,18 @@ export default function Checkout() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                {getStepContent(activeStep,data)}
                 <div className={classes.buttons}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
-                  </Button>
+                {activeStep != 1 &&
+                      <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
+                    </Button>
+                }
                 </div>
               </React.Fragment>
             )}

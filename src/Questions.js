@@ -201,6 +201,7 @@ class Questions extends React.Component {
       </div>
       );
       }else{
+        this.props.step = 2;
         return <React.Fragment>
           {rta.map(item => (
 
