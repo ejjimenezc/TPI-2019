@@ -58,6 +58,23 @@ export default function Review({data}) {
           <Typography gutterBottom>{data.basic.nombre + ' ' + data.basic.apellido}</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
         </Grid>
+        <Grid item container direction="column" xs={12} sm={6}>
+          <Typography variant="h6" gutterBottom className={classes.title}>
+            Información del hogar del usuario
+          </Typography>
+          <Grid container>
+            {payments.map(payment => (
+              <React.Fragment key={payment.name}>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{payment.name}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{payment.detail}</Typography>
+                </Grid>
+              </React.Fragment>
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </React.Fragment>
   );

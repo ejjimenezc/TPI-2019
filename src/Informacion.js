@@ -12,20 +12,24 @@ import Typography from '@material-ui/core/Typography';
 import Inf_basica from './Inf_basica';
 import Inf_tecno from './Inf_tecno';
 import Resumen from './Resumen';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
-  appBar: {
-    position: 'relative',
+  base: {
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://picsum.photos/1000/2000)',
     backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
     backgroundColor:
       theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    height: '100%',
     padding: theme.spacing(1),
 
   },
@@ -38,6 +42,12 @@ const useStyles = makeStyles(theme => ({
       marginLeft: 'auto',
       marginRight: 'auto',
     },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -101,74 +111,79 @@ export default function Checkout({data,updateData}) {
     console.log({data})
   };
   return (
-    <div className={classes.image}>
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Safe Home
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <React.Fragment>
+        <div className={classes.root}>
+          <AppBar>
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                Safe House
+              </Typography>
+              <IconButton aria-label="search" color="inherit">
+                <SearchIcon />
+              </IconButton>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+      <button onClick={show}>
+        Hi
+      </button>
 
-    <button onClick={show}>
-      Hi
-    </button>
-
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Información de tu hogar
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Gracias por confiar en nosotros
-                </Typography>
-                <Typography variant="subtitle1">
-                  ¿Quiere realizar otra prueba?
-                </Typography>
-                <Box display="flex" justifyContent='center'>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={reload}
-                    className={classes.button}
-                  >
-                    Nueva prueba
-                  </Button>
-                </Box>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep,setShowNext,data,updateData)}
-                <div className={classes.buttons}>
-                {showNext != 0 &&
-                      <Button
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Typography component="h1" variant="h4" align="center">
+              Información de tu hogar
+            </Typography>
+            <Stepper activeStep={activeStep} className={classes.stepper}>
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <React.Fragment>
+              {activeStep === steps.length ? (
+                <React.Fragment>
+                  <Typography variant="h5" gutterBottom>
+                    Gracias por confiar en nosotros
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    ¿Quiere realizar otra prueba?
+                  </Typography>
+                  <Box display="flex" justifyContent='center'>
+                    <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      onClick={reload}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
+                      Nueva prueba
                     </Button>
-                }
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        </Paper>
-      </main>
-    </React.Fragment>
-    </div>
+                  </Box>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  {getStepContent(activeStep,setShowNext,data,updateData)}
+                  <div className={classes.buttons}>
+                  {showNext != 0 &&
+                        <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
+                        className={classes.button}
+                      >
+                        {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
+                      </Button>
+                  }
+                  </div>
+                </React.Fragment>
+              )}
+            </React.Fragment>
+          </Paper>
+        </main>
+      </React.Fragment>
   );
 }
