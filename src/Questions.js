@@ -120,6 +120,8 @@ class Questions extends React.Component {
         if(response.status==201){
           this.setState({stage: 2});
           this.setState({rta: json});
+          this.props.setShowNext(1);
+          this.props.data["results"]=json;
           console.log(json);
         }
       } catch (error) {
@@ -131,7 +133,7 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.url)
+    this.props.setShowNext(0);
     fetch(this.props.url+'CategoryQuestion')
       .then(res => res.json())
       .then(
@@ -201,7 +203,6 @@ class Questions extends React.Component {
       </div>
       );
       }else{
-        this.props.step = 2;
         return <React.Fragment>
           {rta.map(item => (
 

@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Review() {
+export default function Review({data}) {
   const classes = useStyles();
 
   return (
@@ -41,6 +41,9 @@ export default function Review() {
       <Typography variant="h6" gutterBottom>
         Tu resumen
       </Typography>
+    <button onClick={console.log(data)}>
+      Click me!
+    </button>
       <List disablePadding>
         {personas.map(product => (
           <ListItem className={classes.listItem} key={product.name}>

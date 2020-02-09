@@ -64,12 +64,12 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Información básica', 'Información tecnológica', 'Tu resumen'];
 
-function getStepContent(step,data) {
+function getStepContent(step,setShowNext,data) {
   switch (step) {
     case 0:
       return <Inf_basica data={data}/>;
     case 1:
-      return <Inf_tecno data={data} step={step}/>;
+      return <Inf_tecno data={data} setShowNext={setShowNext} />;
     case 2:
       return <Resumen data={data}/>;
     default:
@@ -80,6 +80,7 @@ function getStepContent(step,data) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [showNext, setShowNext] = React.useState(1);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -144,9 +145,9 @@ export default function Checkout() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep,data)}
+                {getStepContent(activeStep,setShowNext,data)}
                 <div className={classes.buttons}>
-                {activeStep != 1 &&
+                {showNext != 0 &&
                       <Button
                       variant="contained"
                       color="primary"
