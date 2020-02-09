@@ -1,5 +1,5 @@
 name,question,labels,category
-question_a_1,Es util una camara?,"Si,No",camera
-question_a_2,Es util una alarma?,"Si,No",alarm
-question_a_3,Confianza en los sensores?,"Si,No",sensor
-question_a_4,Cree que la seguridad esta en la forma de entrar?,"Si,No",lock
+question_a_1,¿Desea una forma de detectar que ocurre en un lugar sin estar alli?,"Si,No",camera
+question_a_2,¿Necesita ser notificado en caso de algo sospechoso?,"Si,No",alarm
+question_a_3,¿Le es util herramientas de deteccion?,"Si,No",sensor
+question_a_4,Busca una forma de asegurar entradas a zonas de la casa,"Si,No",lock

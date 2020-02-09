@@ -215,6 +215,8 @@ class Questions extends React.Component {
                 justify="center"
               >
                 <Grid item xs={12}>
+
+                  <h2>Te recomendamos:</h2>
                   <Solution solution={item}/>
                 </Grid>      
               </Grid>
