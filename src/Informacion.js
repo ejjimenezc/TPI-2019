@@ -112,7 +112,7 @@ export default function Checkout({data,updateData}) {
         </Toolbar>
       </AppBar>
 
-          <button onClick={show}>
+    <button onClick={show}>
       Hi
     </button>
 

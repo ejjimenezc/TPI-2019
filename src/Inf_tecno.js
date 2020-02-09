@@ -30,9 +30,6 @@ export default function Inf_tecno(props) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        La tecnología que deseas tener
-      </Typography>
       <br></br>
       <Questions url={process.env.REACT_APP__API_URL} data={props.data} updateData={props.updateData} setShowNext={props.setShowNext}/>
     </React.Fragment>

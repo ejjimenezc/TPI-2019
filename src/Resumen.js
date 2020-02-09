@@ -38,14 +38,14 @@ export default function Review({data}) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Tu resumen
+      <Typography variant="h6" gutterBottom className={classes.title}>
+        Alternativas recomendadas
       </Typography>
       <List disablePadding>
         {data.results.map(product => (
           <ListItem className={classes.listItem} key={product.id}>
             <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+            <Typography variant="body2">$ {product.price}</Typography>
           </ListItem>
         ))}
 

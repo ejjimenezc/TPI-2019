@@ -10,10 +10,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
 import Slider from '@material-ui/core/Slider';
-
 import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class FormB extends React.Component {
 
@@ -23,10 +22,11 @@ class FormB extends React.Component {
     if(data.question_type=="INT"){
       return  <React.Fragment>
       <Grid item xs={12} md={12}>
-        <FormControl component="fieldset">
+        <FormControl fullWidth component="fieldset">
           <FormLabel component="legend">{data.question}</FormLabel>
-          <Input name={data.name}
+          <OutlinedInput name={data.name}
             margin="dense"
+            variant="outlined"
             inputProps={{
               defaultValue: data.min_value,
               min: data.min_value,
@@ -65,15 +65,15 @@ class FormB extends React.Component {
                 <Grid item xs={12} md={12}>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">{data.question}</FormLabel>
-                    <RadioGroup aria-label="tipo_moni" name={data.name}>
-                    {choices.map(item => (
-                      <FormControlLabel key={item}
-                      value={item}
-                      control={<Radio color="primary" />}
-                      label={item}
-                      />
-                    ))}
-                    </RadioGroup>
+                      <RadioGroup aria-label="tipo_moni" name={data.name}>
+                      {choices.map(item => (
+                        <FormControlLabel key={item}
+                        value={item}
+                        control={<Radio color="primary" />}
+                        label={item}
+                        />
+                      ))}
+                      </RadioGroup>
                   </FormControl>
                 </Grid>
               </React.Fragment>

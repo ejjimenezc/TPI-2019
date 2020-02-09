@@ -18,37 +18,7 @@ import Solution from './Solution';
 import { object } from 'prop-types';
 import { withStyles } from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(2),
-  },
-  marginAutoContainer: {
-    width: 500,
-    height: 80,
-    display: 'flex',
-    backgroundColor: 'gold',
-  },
-  marginAutoItem: {
-    margin: 'auto'
-  },
-  alignItemsAndJustifyContent: {
-    width: 500,
-    height: 80,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'pink',
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));
+import Paper from '@material-ui/core/Paper';
 
 
 class Questions extends React.Component {
@@ -86,6 +56,8 @@ class Questions extends React.Component {
     })
     
     var json_data = JSON.stringify(this.convert_to_list(data));
+
+    console.log("Solutions are:",json_data)
 
     if(this.state.stage == 0){
       try {
@@ -158,8 +130,61 @@ class Questions extends React.Component {
       )
   }
 
+
+
+
   render() {
     const { error, isLoaded, categoryQuestions,solutionQuestions, rta } = this.state;
+
+    const useStyles = makeStyles(theme => ({
+      formControl: {
+        margin: theme.spacing(2),
+      },
+      marginAutoContainer: {
+        width: 500,
+        height: 80,
+        display: 'flex',
+        backgroundColor: 'gold',
+      },
+      marginAutoItem: {
+        margin: 'auto'
+      },
+      alignItemsAndJustifyContent: {
+        width: 500,
+        height: 80,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'pink',
+      },
+      buttons: {
+        display: 'flex',
+        justifyContent: 'center',
+      },
+      button: {
+        marginTop: theme.spacing(3),
+        marginLeft: theme.spacing(1),
+      },
+      root: {
+        flexGrow: 1,
+      },
+      paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 500,
+      },
+      image: {
+        width: 128,
+        height: 128,
+      },
+      img: {
+        margin: 'auto',
+        display: 'block',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      },
+    }));
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -214,16 +239,12 @@ class Questions extends React.Component {
                 spacing={2}
                 direction="column"
                 alignItems="center"
-                justify="center"
-              >
+                justify="center">
                 <Grid item xs={12}>
-
-                  <h2>Te recomendamos:</h2>
                   <Solution solution={item}/>
-                </Grid>      
-              </Grid>
+                </Grid>  
+              </Grid> 
             </React.Fragment>
-
           ))}
           </React.Fragment>
       }

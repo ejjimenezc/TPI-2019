@@ -36,9 +36,9 @@ export default function Inf_basica(props) {
     getOptionLabel: option => option.title,
   };
 
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [presupuesto, setPresupuesto] = useState("");
+  const [nombre, setNombre] = useState("Mario");
+  const [apellido, setApellido] = useState("Perez");
+  const [presupuesto, setPresupuesto] = useState(10000);
 
   const local_date = {}
   const update = (e,name) => {
@@ -55,6 +55,7 @@ export default function Inf_basica(props) {
                               "presupuesto": presupuesto,
                               });
   };
+
 
   return (
     <React.Fragment>
