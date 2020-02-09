@@ -14,10 +14,17 @@ class App extends Component {
       name: 'Safe House',
       page: 0,
       solutions: [],
+      data: {}
     };
   }
 
+  updateData = (name,newData) => {
+      this.state.data[name]=newData;
+  };
+
+
   render() {
+
 
     return (
       <Provider value={this.state}>
@@ -28,7 +35,7 @@ class App extends Component {
             {/* Ruta al Home de la aplicacion */}
             <Route exact path = "/" render = { () => {
                 return (
-                  <Informacion/>
+                  <Informacion data={this.state.data} updateData={this.updateData}/>
                 )
               }
               }>

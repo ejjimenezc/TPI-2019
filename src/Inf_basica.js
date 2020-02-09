@@ -6,6 +6,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
+import { useState } from "react";
+
+import Input from '@material-ui/core/Input';
 
 
 function countryToFlag(isoCode) {
@@ -13,6 +16,7 @@ function countryToFlag(isoCode) {
     ? isoCode.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397))
     : isoCode;
 }
+
 
 
 const useStyles = makeStyles({
@@ -25,11 +29,31 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Inf_basica({ data }) {
+export default function Inf_basica(props) {
   const classes = useStyles();
   const defaultProps = {
     options: tipos_casas,
     getOptionLabel: option => option.title,
+  };
+
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [presupuesto, setPresupuesto] = useState("");
+
+  const local_date = {}
+  const update = (e,name) => {
+    if(name=="nombre"){
+      setNombre(e.target.value)
+    }else if(name=="apellido"){
+      setApellido(e.target.value)
+    }else if(name=="presupuesto"){
+      setPresupuesto(e.target.value)
+    }
+    props.updateData("basic",{
+                              "nombre": nombre,
+                              "apellido": apellido,
+                              "presupuesto": presupuesto,
+                              });
   };
 
   return (
@@ -45,7 +69,8 @@ export default function Inf_basica({ data }) {
             name="nombre"
             label="Nombre"
             fullWidth
-            value={data.basic.nombre}
+            value={nombre}
+            onChange={e => update(e,"nombre")}
             autoComplete="nombre"
           />
         </Grid>
@@ -56,7 +81,8 @@ export default function Inf_basica({ data }) {
             name="apellido"
             label="Apellido"
             fullWidth
-            value={data.basic.apellido}
+            value={apellido}
+            onChange={e => update(e,"apellido")}
             autoComplete="apellido"
           />
         </Grid>
@@ -67,7 +93,6 @@ export default function Inf_basica({ data }) {
             name="ciudad"
             label="Ciudad"
             fullWidth
-            value={data.basic.ciudad}
             autoComplete="ciudad"
           />
         </Grid>
@@ -78,7 +103,6 @@ export default function Inf_basica({ data }) {
             name="localidad"
             label="Localidad"
             fullWidth
-            value={data.basic.localidad}
             autoComplete="localidad"
           />
         </Grid>
@@ -89,7 +113,6 @@ export default function Inf_basica({ data }) {
             name="barrio"
             label="Barrio"
             fullWidth
-            value={data.basic.barrio}
             autoComplete="barrio"
           />
         </Grid>
@@ -100,7 +123,6 @@ export default function Inf_basica({ data }) {
             name="direccion"
             label="Dirección"
             fullWidth
-            value={data.basic.direccion}
             autoComplete="direccion"
           />
         </Grid>
@@ -111,8 +133,10 @@ export default function Inf_basica({ data }) {
             name="presupuesto"
             label="Ingresa su presupuesto"
             fullWidth
-            value={data.basic.presupuesto}
-            autoComplete="presupuesto"
+            type="number"
+            value={presupuesto}
+            onChange={e => update(e,"presupuesto")}
+            inputProps={{ min: "0", max: "10000000", step: "1" }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -122,7 +146,6 @@ export default function Inf_basica({ data }) {
             name="tamano"
             label="El tamaño de tu hogar"
             fullWidth
-            value={data.basic.tamano}
             autoComplete="tamano"
           />
         </Grid>

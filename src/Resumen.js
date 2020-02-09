@@ -41,12 +41,9 @@ export default function Review({data}) {
       <Typography variant="h6" gutterBottom>
         Tu resumen
       </Typography>
-    <button onClick={console.log(data)}>
-      Click me!
-    </button>
       <List disablePadding>
-        {personas.map(product => (
-          <ListItem className={classes.listItem} key={product.name}>
+        {data.results.map(product => (
+          <ListItem className={classes.listItem} key={product.id}>
             <ListItemText primary={product.name} secondary={product.desc} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
@@ -58,25 +55,8 @@ export default function Review({data}) {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Información básica del usuario
           </Typography>
-          <Typography gutterBottom>Sebastian Guerrero Salinas</Typography>
+          <Typography gutterBottom>{data.basic.nombre + ' ' + data.basic.apellido}</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Información del hogar del usuario
-          </Typography>
-          <Grid container>
-            {payments.map(payment => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>

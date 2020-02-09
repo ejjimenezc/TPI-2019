@@ -121,8 +121,9 @@ class Questions extends React.Component {
           this.setState({stage: 2});
           this.setState({rta: json});
           this.props.setShowNext(1);
-          this.props.data["results"]=json;
-          console.log(json);
+          console.log(this.props.data);
+          this.props.updateData("results",json);
+          console.log(this.props.data);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -133,6 +134,7 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.data)
     this.props.setShowNext(0);
     fetch(this.props.url+'CategoryQuestion')
       .then(res => res.json())

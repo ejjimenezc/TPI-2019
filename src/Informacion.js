@@ -64,12 +64,12 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Información básica', 'Información tecnológica', 'Tu resumen'];
 
-function getStepContent(step,setShowNext,data) {
+function getStepContent(step,setShowNext,data, updateData) {
   switch (step) {
     case 0:
-      return <Inf_basica data={data}/>;
+      return <Inf_basica data={data} updateData={updateData}/>;
     case 1:
-      return <Inf_tecno data={data} setShowNext={setShowNext} />;
+      return <Inf_tecno data={data} setShowNext={setShowNext} updateData={updateData} />;
     case 2:
       return <Resumen data={data}/>;
     default:
@@ -77,7 +77,8 @@ function getStepContent(step,setShowNext,data) {
   }
 }
 
-export default function Checkout() {
+
+export default function Checkout({data,updateData}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [showNext, setShowNext] = React.useState(1);
@@ -85,6 +86,7 @@ export default function Checkout() {
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
+  
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -94,12 +96,10 @@ export default function Checkout() {
     window.location.reload();
   };
 
-  const data = {}
-  data["basic"]={}
-  data.basic["nombre"]="Juan";
-  data.basic["apellido"]="Perez";
-  data.basic["presupuesto"]="1000000";
 
+  const show = () => {
+    console.log({data})
+  };
   return (
     <div className={classes.image}>
     <React.Fragment>
@@ -111,6 +111,11 @@ export default function Checkout() {
           </Typography>
         </Toolbar>
       </AppBar>
+
+          <button onClick={show}>
+      Hi
+    </button>
+
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -145,7 +150,7 @@ export default function Checkout() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep,setShowNext,data)}
+                {getStepContent(activeStep,setShowNext,data,updateData)}
                 <div className={classes.buttons}>
                 {showNext != 0 &&
                       <Button

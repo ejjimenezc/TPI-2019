@@ -34,7 +34,7 @@ export default function Inf_tecno(props) {
         La tecnología que deseas tener
       </Typography>
       <br></br>
-      <Questions url={process.env.REACT_APP__API_URL} data={props.data} setShowNext={props.setShowNext}/>
+      <Questions url={process.env.REACT_APP__API_URL} data={props.data} updateData={props.updateData} setShowNext={props.setShowNext}/>
     </React.Fragment>
   );
 }
