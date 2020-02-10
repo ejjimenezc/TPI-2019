@@ -99,33 +99,45 @@ def category_analysis(data):
 
 #https://www.smarthomegadgets.shop/
 def solution_analysis(data):
-    solutions = None
-    for question in data:
-        question_obj = SolutionQuestion.objects.get(name=question["name"])
-        cat_solutions = Solution.objects.filter(category=question_obj.category_id)
-        
-        if question_obj.solution_field == '' or question_obj.solution_field == None:
-            continue
+    solutions = {}
+    questions = {}
 
-        if solutions is None:
-            solutions = cat_solutions
+    for item in data:
+        questionObj = SolutionQuestion.objects.filter(name=item["name"])
+        cat = questionObj[0].category_id
+        if not cat in questions:
+            questions[cat] = []
+        questions[cat] += [item]
 
-        if question_obj.question_type == "INT":
-            response = int(question["response"])
-            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,question_obj.comparator): response })
-            solutions = solutions | (cat_solutions.intersection(a))
+    for category in questions:
+        solutions[category] = Solution.objects.filter(category=category)
+        sol_per_cat = Solution.objects.filter(category=category)
+        for question in questions[category]:
+            qobj = SolutionQuestion.objects.get(name=question["name"])
+            if qobj.solution_field == '' or qobj.solution_field == None:
+                continue
 
-        elif question_obj.question_type == "BOOLEAN":
-            response = bool(question["response"])
-            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response })
-            solutions = solutions | (cat_solutions.intersection(a))
+            if qobj.question_type == "INT":
+                response = int(question["response"])
+                a = sol_per_cat.filter(**{create_arg(qobj.solution_field,qobj.comparator): response })
+                solutions[category] = solutions[category].intersection(a)
 
-        elif question_obj.question_type == "MULTIPLE":
-            response = question["response"]
-            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response })
-            solutions = solutions | (cat_solutions.intersection(a))
+            elif qobj.question_type == "BOOLEAN":
+                response = bool(question["response"])
+                a = sol_per_cat.filter(**{create_arg(qobj.solution_field,"EQUAL"): response })
+                solutions[category] = solutions[category].intersection(a)
 
-    return list(set(list(solutions)))
+            elif qobj.question_type == "MULTIPLE":
+                response = question["response"]
+                a = sol_per_cat.filter(**{create_arg(qobj.solution_field,"EQUAL"): response })
+                solutions[category] = solutions[category].intersection(a)
+
+    response = []
+
+    for cat, sol in solutions.items():
+        response += list(sol)
+
+    return list(set(response))
 
 def create_arg(field,operation):
     if operation == "EQUAL":
