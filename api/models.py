@@ -99,29 +99,33 @@ def category_analysis(data):
 
 #https://www.smarthomegadgets.shop/
 def solution_analysis(data):
-    
-    products = []
-
+    solutions = None
     for question in data:
         question_obj = SolutionQuestion.objects.get(name=question["name"])
-        cat_solutions = Solution.objects.filter(category=question_obj.category)
+        cat_solutions = Solution.objects.filter(category=question_obj.category_id)
         
         if question_obj.solution_field == '' or question_obj.solution_field == None:
             continue
 
+        if solutions is None:
+            solutions = cat_solutions
+
         if question_obj.question_type == "INT":
             response = int(question["response"])
-            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,question_obj.comparator): response }))
+            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,question_obj.comparator): response })
+            solutions = solutions | (cat_solutions.intersection(a))
 
         elif question_obj.question_type == "BOOLEAN":
             response = bool(question["response"])
-            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response }))
+            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response })
+            solutions = solutions | (cat_solutions.intersection(a))
 
         elif question_obj.question_type == "MULTIPLE":
             response = question["response"]
-            products += list(Solution.objects.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response }))
+            a = cat_solutions.filter(**{create_arg(question_obj.solution_field,"EQUAL"): response })
+            solutions = solutions | (cat_solutions.intersection(a))
 
-    return list(set(products))
+    return list(set(list(solutions)))
 
 def create_arg(field,operation):
     if operation == "EQUAL":
