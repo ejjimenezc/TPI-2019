@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Category(models.Model):
     code = models.CharField(max_length=20,primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     description = models.TextField()
 
     def __str__(self):
@@ -13,9 +13,9 @@ class Category(models.Model):
 
 class Brand(models.Model):
     code = models.CharField(max_length=20,primary_key=True)
-    name = models.CharField(max_length=100,unique=True)
+    name = models.CharField(max_length=200,unique=True)
     description = models.TextField()
-    url =  models.URLField(max_length=300,null=True)
+    url =  models.URLField(max_length=500,null=True)
     
     def __str__(self):
         return self.name
@@ -23,12 +23,12 @@ class Brand(models.Model):
 
 
 class Solution(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE,related_name='categories_a')
-    url =  models.URLField(max_length=300,null=True)
-    image =  models.URLField(max_length=300,null=True)
+    url =  models.URLField(max_length=1000,null=True)
+    image =  models.URLField(max_length=1000,null=True)
     price = models.IntegerField(default=0)
     rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
@@ -39,8 +39,8 @@ class Solution(models.Model):
 
 class CategoryQuestion(models.Model):
 
-    name = models.CharField(max_length=100,unique=True)
-    question = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,unique=True)
+    question = models.CharField(max_length=500)
     labels = models.CharField(default="Si,No", max_length=50)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories_a')
 
@@ -60,8 +60,8 @@ class SolutionQuestion(models.Model):
         ('GREATER', 'Greater'),
     ]
 
-    name = models.CharField(max_length=100,unique=True)
-    question = models.CharField(max_length=500)
+    name = models.CharField(max_length=200,unique=True)
+    question = models.CharField(max_length=1000)
     question_type = models.CharField(
         max_length=10,
         choices=FORM_TYPES,
