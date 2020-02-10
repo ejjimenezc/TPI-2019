@@ -32,7 +32,7 @@ SECRET_KEY = 'dh#ey+fe(43ui5qlol-u*$+(=-3ah99v85al8u%1zo+aax)*6b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','0.0.0.0','tpig47.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','0.0.0.0','tpig47.herokuapp.com','safehousetpi.herokuapp.com']
 
 
 # Application definition
@@ -147,7 +147,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     'https://tpig47.herokuapp.com',
-    'http://tpig47.herokuapp.com'
+    'http://tpig47.herokuapp.com',
+    'https://safehousetpi.herokuapp.com',
+    'http://safehousetpi.herokuapp.com',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
