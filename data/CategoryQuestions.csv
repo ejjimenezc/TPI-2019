@@ -1,5 +1,6 @@
 name,question,labels,category
-question_a_1,¿Desea una forma de detectar que ocurre en un lugar sin estar alli?,"Si,No",camera
-question_a_2,¿Necesita ser notificado en caso de algo sospechoso?,"Si,No",alarm
-question_a_3,¿Le es util herramientas de deteccion?,"Si,No",sensor
-question_a_4,Busca una forma de asegurar entradas a zonas de la casa,"Si,No",lock
+cq01,¿Desea poder conocer el estado de su hogar desde cualquier lugar?,"Si,No",camera
+cq02,¿Quiere alguna forma de alerta sobre situaciones sospechosas?,"Si,No",alarm
+cq03,¿Quiere conocer el estado de objetos de su hogar?,"Si,No",sensor
+cq04,¿Quiere formas de acceso al hogar mas estrictas?,"Si,No",lock
+cq05,¿Tiene lugares con poca iluminacion las cuales cree que pueden ser un riesgo para la seguridad de su hogar?,"Si,No",light

@@ -1,6 +1,19 @@
 name,question,question_type,min_value,max_value,default_value,boolean_labels,choices_labels,category,solution_field,comparator
-question_b_01,Selecciona el tipo de monitoreo que quisieras:,MULTIPLE,,,,,"Auditivo, Visual, Sonoro, Ninguno",sensor,,EQUAL
-question_b_02,Selecciona tu preferencia con respecto a cables:,MULTIPLE,,,,,"Wired, Wireless, Both",sensor,,EQUAL
-question_b_03,El sistema debe ser analogo o digital?,BOOLEAN,,,,"Analogo, Digital",,sensor,,EQUAL
-question_b_04,Que tan alto desea el precio del producto.,INT,1,1000,3,,,sensor,price,LOWER
-question_b_05,"Cada productio tiene asignado un rating basado en otros usuarios, escoja el puntaje minimo",INT,0,5,3,,,sensor,rating,GREATER
+sq01,Selecciona el tipo de monitoreo que quisieras:,MULTIPLE,,,,,"Auditivo, Visual, Sonoro",lock,,EQUAL
+sq02,Selecciona tu preferencia con respecto a cables:,MULTIPLE,,,,,"Cable, Inalambrica",alarm,,EQUAL
+sq03,El sistema debe ser analogo o digital?,BOOLEAN,,,,"Analogo, Digital",,sensor,,EQUAL
+sq04,Ingrese su presupuesto para el sistema de camaras:,INT,1,10000000,3,,,camera,price,LOWER
+sq05,El sistema de camaras debe tener un rating minimo de:,INT,0,5,3,,,camera,rating,GREATER
+sq06,Que tipo de camara prefiere?,MULTIPLE,,,,,"Interior, Movimiento, Vision Nocturna, Ocultas, Exterior",camera,,EQUAL
+sq07,Ingrese su presupuesto para el sistema de alarmas:,INT,1,10000000,3,,,alarm,price,LOWER
+sq08,El sistema de alarmas debe tener un rating minimo de:,INT,0,5,3,,,alarm,rating,GREATER
+sq09,Ingrese su presupuesto para el sistema de sensores:,INT,1,10000000,3,,,sensor,price,LOWER
+sq10,¿Desea que la alarma sea capaz de activarun protocolo de seguridad?,BOOLEAN,,,,"Con Protocolo, Simple",,alarm,,EQUAL
+sq11,El sistema de sensores debe tener un rating minimo de:,INT,0,5,3,,,sensor,rating,GREATER
+sq12,Ingrese su presupuesto para el sistema de cerraduras:,INT,1,10000000,3,,,lock,price,LOWER
+sq13,El sensor mas util para mi hogar es:,MULTIPLE,,,,,"Proximidad, Temperatura, Contacto",sensor,,EQUAL
+sq14,¿Desea un cerrojo como forma adicional de apertura de la vivienda?,BOOLEAN,,,,"Mas Alternativas, Unica Alternativa",,lock,,EQUAL
+sq15,El sistema de cerraduras debe tener un rating minimo de:,INT,0,5,3,,,lock,rating,GREATER
+sq16,Ingrese su presupuesto para el sistema de luces:,INT,1,10000000,3,,,light,price,LOWER
+sq17,El sistema de luces debe tener un rating minimo de:,INT,0,5,3,,,light,rating,GREATER
+sq18,¿Quiere luces eficientemente energeticas?:,BOOLEAN,,,,"Si, No",,light,,EQUAL
